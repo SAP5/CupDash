@@ -62,8 +62,8 @@ public class WebSecurityConfig {
 	public WebSecurityCustomizer webSecurityCustomizer() {
 	    return (web) -> web
 	      .ignoring()
-	      .antMatchers("/image"
-	      		+ "/**", "/js/**", "/css/**", "/webjars/**");
+	      .antMatchers("/image/**",
+	      		 "/js/**", "/css/**", "/webjars/**");
 	}
 	 
 	 
