@@ -47,14 +47,14 @@ public class ADMClienteController {
         Cliente cliente = new Cliente();
 		cliente = servico.getById(id);
         model.addAttribute("cliente", cliente);
-		return "administrativo/cliente_update";
+		return "cliente_update";
 	}
 
 	@PostMapping("/clientes/update/{id}")
 	public String updateCliente(@PathVariable("id") int id, Cliente cliente){
 		servico.update(cliente, id);
 		System.out.println("passou");
-		return "redirect:/adm/clientes";
+		return "redirect:/clientes";
 	}
 	
 	@GetMapping("/clientesPdf")
