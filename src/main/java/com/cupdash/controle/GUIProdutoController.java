@@ -17,6 +17,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.cupdash.model.Categoria;
 import com.cupdash.model.Cor;
+import com.cupdash.model.Modelo;
 import com.cupdash.model.Produto;
 import com.cupdash.model.ProdutoDTO;
 import com.cupdash.model.Tamanho;
@@ -37,7 +38,7 @@ public class GUIProdutoController {
     TamanhoI servicoTam;
     @Autowired
     CategoriaI servicoCat;
-    
+   
 
     @GetMapping("/produtos")
 	public String listProdutos(Model model) {
@@ -47,15 +48,17 @@ public class GUIProdutoController {
 	}
 
     @GetMapping("/produtoCad")
-	public String formCliente(Model model) {
+	public String formProduto(Model model) {
     	Produto produto = new Produto();
         List<Cor> listCor = servicoCor.obtemCores();
         List<Tamanho> listTamanho = servicoTam.obtemTamanhos();
         List<Categoria> listCategoria = servicoCat.obtemCategoria();
+        List<Modelo> listM = servico.obtemModelos();
         
         model.addAttribute("produto",produto);
 		model.addAttribute("listCor", listCor);
 		model.addAttribute("listTamanho", listTamanho);
+		model.addAttribute("listM", listM);
 		model.addAttribute("listCategoria", listCategoria);
         
 		return "produto_form";
@@ -87,17 +90,19 @@ public class GUIProdutoController {
     @GetMapping("/alteraProd/{id}")
 	public ModelAndView viewProdutoUpdate(@PathVariable("id") int id) {
     	ModelAndView mv = new ModelAndView("produto_update");
-    	Produto produto = new Produto();
+    	ProdutoDTO produto = new ProdutoDTO();
 		produto = servico.getById(id);
 		
 		List<Cor> listCor = servicoCor.obtemCores();
         List<Tamanho> listTamanho = servicoTam.obtemTamanhos();
         List<Categoria> listCategoria = servicoCat.obtemCategoria();
+        List<Modelo> listM = servico.obtemModelos();
         
         mv.addObject("produto",produto);
 		mv.addObject("listCor", listCor);
 		mv.addObject("listTamanho", listTamanho);
 		mv.addObject("listCategoria", listCategoria);
+		mv.addObject("listM", listM);
 		return mv;
 	}
     
@@ -107,12 +112,15 @@ public class GUIProdutoController {
     	List<Cor> listCor = servicoCor.obtemCores();
    		List<Tamanho> listTamanho = servicoTam.obtemTamanhos();
    		List<Categoria> listCategoria = servicoCat.obtemCategoria();
+   		List<Modelo> listM = servico.obtemModelos();
+   		
     	if (result.hasErrors()) {
     		produto.setId(id);
     		mv.addObject("produto",produto);
     		mv.addObject("listCor", listCor);
     		mv.addObject("listTamanho", listTamanho);
     		mv.addObject("listCategoria", listCategoria);
+    		mv.addObject("listM", listM);
    			mv.setViewName("produto_update");
    			
    		} else {

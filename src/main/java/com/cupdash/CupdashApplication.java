@@ -2,10 +2,8 @@ package com.cupdash;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import com.cupdash.model.Funcionario;
-import com.cupdash.service.FuncionarioI;
+import com.cupdash.service.ProdutoI;
 
 @SpringBootApplication
 public class CupdashApplication {
@@ -23,7 +21,6 @@ public class CupdashApplication {
 //		f.setSenha(encodedPassword);
 //		System.out.println(encodedPassword);
 //		func.save(f);
-		
 	}
 
 }

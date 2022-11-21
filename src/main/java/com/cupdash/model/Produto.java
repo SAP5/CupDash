@@ -29,6 +29,10 @@ public class Produto {
 	@Digits(integer=3,fraction=2,message="Apenas centenas e 2 casas após o ponto.")
 	private BigDecimal lucro;
 	
+	@NotNull(message = "Custo é requerido")
+	@Digits(integer=3,fraction=2,message="Apenas centenas e 2 casas após o ponto.")
+	private BigDecimal custo;
+	
 	@NotNull(message = "Estoque é requerido")
 	private Integer estoque;
 
@@ -136,6 +140,14 @@ public class Produto {
 
 	public void setLucro(BigDecimal lucro) {
 		this.lucro = lucro;
+	}
+	
+	public BigDecimal getCusto() {
+		return custo;
+	}
+
+	public void setCusto(BigDecimal custo) {
+		this.custo = custo;
 	}
 
 	public Integer getEstoque() {

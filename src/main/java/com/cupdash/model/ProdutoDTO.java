@@ -1,7 +1,10 @@
 package com.cupdash.model;
 
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.Set;
 
+import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PositiveOrZero;
@@ -16,16 +19,19 @@ public class ProdutoDTO {
     private String descricao;
     @NotNull
     private double lucro;
+    @NotNull
+	private BigDecimal custo;
     @PositiveOrZero
     private int estoque;
     @NotEmpty
-    private List<String> cores;
+    private Set<Cor> cores;
     @NotEmpty
-    private List<String> tamanhos;
+    private Set<Tamanho> tamanhos;
     @NotEmpty
-    private List<Categoria> categorias;
+    private Set<Categoria> categorias;
     @NotNull
     private Modelo modelo;
+    
     private String imagem;
     
     public int getId() {
@@ -58,28 +64,35 @@ public class ProdutoDTO {
     public void setLucro(double lucro) {
         this.lucro = lucro;
     }
+    public BigDecimal getCusto() {
+		return custo;
+	}
+
+	public void setCusto(BigDecimal custo) {
+		this.custo = custo;
+	}
     public int getEstoque() {
         return estoque;
     }
     public void setEstoque(int estoque) {
         this.estoque = estoque;
     }
-    public List<String> getCores() {
+    public Set<Cor> getCores() {
         return cores;
     }
-    public void setCores(List<String> cores) {
+    public void setCores(Set<Cor> cores) {
         this.cores = cores;
     }
-    public List<String> getTamanhos() {
+    public Set<Tamanho> getTamanhos() {
         return tamanhos;
     }
-    public void setTamanhos(List<String> tamanhos) {
+    public void setTamanhos(Set<Tamanho> tamanhos) {
         this.tamanhos = tamanhos;
     }
-    public List<Categoria> getCategorias() {
+    public Set<Categoria> getCategorias() {
         return categorias;
     }
-    public void setCategorias(List<Categoria> categorias) {
+    public void setCategorias(@NotEmpty Set<Categoria> categorias) {
         this.categorias = categorias;
     }
     public Modelo getModelo() {
@@ -94,6 +107,7 @@ public class ProdutoDTO {
     public void setImagem(String imagem) {
         this.imagem = imagem;
     }
+    
 
 
     

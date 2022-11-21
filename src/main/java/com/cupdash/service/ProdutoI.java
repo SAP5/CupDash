@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import com.cupdash.model.Modelo;
 import com.cupdash.model.Produto;
 import com.cupdash.model.ProdutoDTO;
 
@@ -17,7 +18,7 @@ import com.cupdash.model.ProdutoDTO;
 public class ProdutoI {
 
     public List<ProdutoDTO> obtemProdutos() {
-        String url = "https://cupkat-test.herokuapp.com/produtos/";
+        String url = "https://cupkat-dev.herokuapp.com/produtos/";
         HttpHeaders headers = new HttpHeaders();
         headers.set("accept", "application/json");
         headers.set("Authorization", "authorizationHeader");
@@ -48,7 +49,7 @@ public class ProdutoI {
     public void delete(int id){
         RestTemplate restTemplate = new RestTemplate();
 
-        String url = "https://cupkat-test.herokuapp.com/produtos/delete/{id}";
+        String url = "https://cupkat-dev.herokuapp.com/produtos/delete/{id}";
 
         restTemplate.delete(url, id, String.class);
     }
@@ -61,12 +62,32 @@ public class ProdutoI {
         restTemplate.put(url, produto, produto.getId());
 	}
 
-    public Produto getById(int id){
+    public ProdutoDTO getById(int id){
         RestTemplate restTemplate = new RestTemplate();
-        String url = "https://cupkat-test.herokuapp.com/produtos/by_id/{id}";
+        String url = "https://cupkat-dev.herokuapp.com/produtos/by_id/{id}";
         
-        ResponseEntity<Produto> result = restTemplate.getForEntity(url, Produto.class, id);
+        ResponseEntity<ProdutoDTO> result = restTemplate.getForEntity(url, ProdutoDTO.class, id);
         System.out.println(result.getBody());
         return result.getBody();
     }
+    
+    public List<Modelo> obtemModelos() { 
+        String url = "https://cupkat-test.herokuapp.com/modelos/"; 
+        
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("accept", "application/json");
+        headers.set("Authorization", "authorizationHeader");
+        
+        HttpEntity requestEntity = new HttpEntity<>(null, headers);
+
+        RestTemplate templ = new RestTemplate();
+        ResponseEntity<List<Modelo>> resposta = templ.exchange(url,
+            HttpMethod.GET,
+            requestEntity,
+            new ParameterizedTypeReference<List<Modelo>>() {
+            });
+        List<Modelo> modelos = resposta.getBody();
+        System.out.println(modelos);
+        return modelos;
+	}
 }
