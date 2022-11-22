@@ -89,7 +89,7 @@
                 
                 <div class="input-group flex-nowrap mb-3">
 					<select th:field="*{modelo}" class="form-select">
-						<option value="0">Selecione um modelo</option>
+						<option value="">Selecione um modelo</option>
 						<option th:each="m : ${listM}" th:value="${m.id}" th:text="${m.titulo}"></option>
 					</select>
 				</div>
