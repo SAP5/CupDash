@@ -71,10 +71,12 @@ public class GUIProdutoController {
    		List<Cor> listCor = servicoCor.obtemCores();
    		List<Tamanho> listTamanho = servicoTam.obtemTamanhos();
    		List<Categoria> listCategoria = servicoCat.obtemCategoria();
+		List<Modelo> listM = servico.obtemModelos();
    		if (result.hasErrors()) {
    			mv.addObject("produto", produto);
    			mv.addObject("produto",produto);
    			mv.addObject("listCor", listCor);
+			mv.addObject("listM", listM);
    			mv.addObject("listTamanho", listTamanho);
    			mv.addObject("listCategoria", listCategoria);
    			mv.setViewName("produto_form");
