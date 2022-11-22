@@ -27,10 +27,8 @@
                 <div class="input-group mb-3">
                     <span class="input-group-text">Custo</span>
                     <span class="input-group-text">R$ 0.00</span>
-                    <input type="text" class="form-control" th:field="*{custo}">
+                    <input type="text" class="form-control">
                 </div>
-                
-                <span th:if="${#fields.hasErrors('custo')}" th:errors="*{custo}" class="text-danger"></span>
 
                 <div class="input-group mb-3">
                     <span class="input-group-text">Lucro</span>
@@ -91,7 +89,7 @@
                 
                 <div class="input-group flex-nowrap mb-3">
 					<select th:field="*{modelo}" class="form-select">
-						<option value="">Selecione um modelo</option>
+						<option value="0">Selecione um modelo</option>
 						<option th:each="m : ${listM}" th:value="${m.id}" th:text="${m.titulo}"></option>
 					</select>
 				</div>

@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,6 +31,8 @@ import com.cupdash.service.TamanhoI;
 @Controller
 @RequestMapping(path = "/")
 public class GUIProdutoController {
+	
+	Logger logger = LogManager.getLogger(GUIProdutoController.class);
 
     @Autowired
     ProdutoI servico;
@@ -49,6 +53,7 @@ public class GUIProdutoController {
 
     @GetMapping("/produtoCad")
 	public String formProduto(Model model) {
+    	logger.info(">>>>>> controller chamado => ");
     	Produto produto = new Produto();
         List<Cor> listCor = servicoCor.obtemCores();
         List<Tamanho> listTamanho = servicoTam.obtemTamanhos();
@@ -67,12 +72,14 @@ public class GUIProdutoController {
     
     @PostMapping("/saveProduto")
    	public ModelAndView save(@Valid Produto produto, BindingResult result, RedirectAttributes redirectAttributes) {
-   		ModelAndView mv = new ModelAndView("produtos");
+    	logger.info(">>>>>> controller save chamado => ");
+    	ModelAndView mv = new ModelAndView("produtos");
    		List<Cor> listCor = servicoCor.obtemCores();
    		List<Tamanho> listTamanho = servicoTam.obtemTamanhos();
    		List<Categoria> listCategoria = servicoCat.obtemCategoria();
 		List<Modelo> listM = servico.obtemModelos();
    		if (result.hasErrors()) {
+   			logger.info(">>>>>> controller chamado has errors => ");
    			mv.addObject("produto", produto);
    			mv.addObject("produto",produto);
    			mv.addObject("listCor", listCor);
@@ -81,6 +88,7 @@ public class GUIProdutoController {
    			mv.addObject("listCategoria", listCategoria);
    			mv.setViewName("produto_form");
    		} else {
+   			logger.info(">>>>>> controller chamado dados ok => ");
    			servico.save(produto);
    			mv.setViewName("produtos");
    			redirectAttributes.addFlashAttribute("message", "Produto criado com sucesso!");
@@ -124,7 +132,7 @@ public class GUIProdutoController {
     		mv.addObject("listCategoria", listCategoria);
     		mv.addObject("listM", listM);
    			mv.setViewName("produto_update");
-   			
+ 
    		} else {
    			servico.update(produto, id);
    			redirectAttributes.addFlashAttribute("message", "Produto alterado com sucesso!");
